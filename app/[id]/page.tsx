@@ -1,32 +1,35 @@
 "use client"
 import React from "react";
-import { useRouter } from "next/router";
-// import { blogsData } from "../components/blogCards/BlogData";
-// import Markdown from "react-markdown";
-// import Image from "next/image";
+// import { useRouter } from "next/router";
+import { blogsData } from "../components/blogCards/BlogData";
+import Markdown from "react-markdown";
+import Image from "next/image";
 
-const BlogDetail = () => {
-  // console.log(props.params.id);
 
-  // const blogPost = blogsData.find(
-  //   (blog) => blog.id === parseInt(props.params.id as string)
-  // );
+const BlogDetail: React.FC = (props: any) => {
+  console.log(props.params.id);
 
-  // if (!blogPost) {
-  //   return <div>Blog post not found.</div>;
-  // }
+  const blogPost = blogsData.find(
+    (blog) => blog.id === parseInt(props.params.id as string)
+  );
 
-  const router = useRouter();
-  const { id } = router.query();
-  console.log(id);
 
-  const HandleComment = (event: React.FormEvent<HTMLFormElement>) => {
+  if (!blogPost) {
+    return <div>Blog post not found.</div>;
+  }
+
+
+  // const router = useRouter();
+  // const { id } = router.query();
+  console.log(blogPost.id);
+
+  const HandleComment = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     console.log("Form submitted!");
   };
   return (
     <div className="w-full flex justify-center items-center pt-10 flex-col">
-      {/* <div className="md:w-2/3 2xl:w-2/4 flex justify-center items-start px-5 sm:px-12 flex-col">
+      <div className="md:w-2/3 2xl:w-2/4 flex justify-center items-start px-5 sm:px-12 flex-col">
         <div className="flex-col flex justify-center items-center w-full">
           <Image className="w-full" src={blogPost.image} alt={blogPost.title} />
           <div className="py-2">
@@ -63,7 +66,7 @@ const BlogDetail = () => {
 
           <form
             className="flex flex-col justify-center items-end gap-y-3"
-            onSubmit={HandleComment}
+            onSubmit={(event) => HandleComment(event)}
           >
             <textarea
               cols={4}
@@ -74,12 +77,13 @@ const BlogDetail = () => {
             <button
               type="submit"
               className="text-white bg-[#1c9b77]  py-1 px-3 text-sm xl:text-base rounded-lg hover:bg-gray-400   transition transform"
+            // onClick={() => HandleComment()}
             >
               comment
             </button>
           </form>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
